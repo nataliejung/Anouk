@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+        <head>
+                <meta charset='utf-8'>
+                <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+                <title>success</title>
+                <meta name='viewport' content='width=device-width, initial-scale=1'>
+                <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+                <script src='main.js'></script>
+            </head>
+            
+            <body style="background-color: aquamarine" >                
+                <p>Financial statements file uploaded successfuly.</p>
+                <p>File Name:                  {{name}}</p>
+                <p>Do you want to extract client financial statements?</p>
+                    <div >
+                    <form method="get" action="/convert">                      
+                        <input type="submit" value="Extract">
+                    </form>
+                    </div>          
+            </body>
+
+
+</html>
