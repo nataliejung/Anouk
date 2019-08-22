@@ -154,7 +154,7 @@ def heapMap(uploadedFile):
 
     def addChanges(fdf):
         fdf["TL-Diff"] = fdf["TL-2018"] - fdf["TL-2017"]
-        fdf["% Change"] = (fdf["TL-Diff"] / fdf["TL-2017"]) * 100
+        fdf["% Change"] = round((fdf["TL-Diff"] / fdf["TL-2017"]) * 100,1)
 
 
     # Color code them,
