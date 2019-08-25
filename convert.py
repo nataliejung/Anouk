@@ -11,10 +11,6 @@ from pprint import pprint
 def heapMap(uploadedFile):
     parsedPDF = parser.from_file(uploadedFile, xmlContent=True)
    
-
-#parsedPDF = parser.from_file("Koc-Holding-2018-Annual-Report.pdf", xmlContent=True)
-
-
     parsedPDF.keys()
 
     rawContent = parsedPDF["content"]
@@ -147,6 +143,10 @@ def heapMap(uploadedFile):
                 line.insert(1, None)
                 res[idx] = line
 
+        #Only for the first row for YEAR value        
+        if str(res[0][0]) == '' and str(res[0][1]) == "None":
+            del (res[0])
+            
         return pd.DataFrame.from_records(res, columns=targetFields)
 
     # Add 1-year changes
@@ -157,7 +157,7 @@ def heapMap(uploadedFile):
         fdf["% Change"] = round((fdf["TL-Diff"] / fdf["TL-2017"]) * 100,1)
 
 
-    # Color code them,
+
     # Green if change is less than or equal to 5%
     # Amber if change is between 5-10%
     # Red if change is larger than 10%

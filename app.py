@@ -28,7 +28,6 @@ def download():
         filename = convert.file_decoder(uploadedFile)
         return send_file(filename,as_attachment=True)
 
-
         
 if __name__ == "__main__":
     app.run(debug=True)
