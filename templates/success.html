@@ -7,17 +7,48 @@
                 <title>success</title>
                 <meta name='viewport' content='width=device-width, initial-scale=1'>
                 <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-                <script src='main.js'></script>
+                <style>
+                    #myProgress {
+                      width: 100%;
+                      background-color: #ddd;
+                    }
+                    
+                    #myBar {
+                      width: 1%;
+                      height: 30px;
+                      background-color: rgb(192, 192, 192);
+                    }
+                    </style>
+                <script>
+                    function move() {
+                      var elem = document.getElementById("myBar");   
+                      var width = 1;
+                      var id = setInterval(frame, 500);
+                      function frame() {
+                        if (width >= 100) {
+                          clearInterval(id);
+                        } else {
+                          width++; 
+                          elem.style.width = width + '%'; 
+                        }
+                      }
+                    }
+                    </script>
             </head>
             
-            <body style="background-color: aquamarine" >                
-                <p>Financial statements file uploaded successfuly.</p>
-                <p>File Name:                  {{name}}</p>
-                <p>Do you want to extract client financial statements?</p>
-                    <div >
-                    <form method="get" action="/convert">                      
-                        <input type="submit" value="Extract">
+            <body>                
+                <p><font face="verdana">Fnancial statements of <font color="red">{{name}}</font>  uploaded successfuly.</font></p>
+                <p><font face="verdana">Do you want to extract financial statements from <font color="red">{{name}}</font>?</font></p>
+                    <div >                    
+                    <form method="get" action="/convert">   
+                        <div id="myProgress">
+                            <div id="myBar"></div>
+                          </div>
+                          
+                          <br>                   
+                        <input type="submit" value="Extract" onclick="move()">
                     </form>
+                    
                     </div>          
             </body>
 
