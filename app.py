@@ -21,7 +21,7 @@ def success():
 @app.route("/convert")
 def heapMap():
         convert.heapMap(uploadedFile)
-        return render_template("download.html" , name=uploadedFile)
+        return render_template("download.html")
 
 @app.route("/download")
 def download():
