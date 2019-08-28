@@ -2,6 +2,8 @@ import re
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import xlsxwriter
+import util
 from tika import parser
 from pprint import pprint
 
@@ -9,6 +11,7 @@ from pprint import pprint
 
 
 def heapMap(uploadedFile):
+    
     parsedPDF = parser.from_file(uploadedFile, xmlContent=True)
    
     parsedPDF.keys()
@@ -187,12 +190,22 @@ def heapMap(uploadedFile):
     addChanges(CIS)
     addChanges(CCF)
     
+    #Delete any file
+    util.clean_file(util.file_decoder(uploadedFile))
 
     # Export to excel
-    with pd.ExcelWriter(file_decoder(uploadedFile)) as writer:
+    with pd.ExcelWriter(util.file_decoder(uploadedFile)) as writer:
         CBS.style.apply(colorcode, axis=1).to_excel(writer, sheet_name="CBS")
         CIS.style.apply(colorcode, axis=1).to_excel(writer, sheet_name="CIS")
         CCF.style.apply(colorcode, axis=1).to_excel(writer, sheet_name="CCF")
+        util.file_width(writer, "CBS")           
+        util.file_width(writer, "CIS")     
+        util.file_width(writer, "CCF")
+
+    
+       
+    
+      
 
     # Parameters for plotting
     plotKwargs = {
@@ -223,17 +236,13 @@ def heapMap(uploadedFile):
         align_yaxis(ax, 0, ax1, 0)
 
 
-    plotChanges(CBS)
+  #  plotChanges(CBS)
 
-    plotChanges(CIS)
+  #  plotChanges(CIS)
 
-    plotChanges(CCF)
+  #  plotChanges(CCF)
 
 
-# Excel name
-def file_decoder(song):           
-    song = song.upper()
-    song = (" ".join(song.replace("PDF", "xlsx").split()))
-    return song
+
 
 #heapMap("Koc-Holding-2018-Annual-Report.pdf")

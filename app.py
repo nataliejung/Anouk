@@ -1,13 +1,17 @@
 from flask import *
 import convert
+import util
 
-uploadedFile = None
+uploadedFile = "Koc-Holding-2018-Annual-Report.pdf"  #None
 
 app = Flask(__name__)
 
 @app.route("/")
 def upload():
-    return render_template("file_upload.html")
+   convert.heapMap(uploadedFile)
+   return render_template("download.html", name=uploadedFile)
+
+    #return render_template("file_upload.html")
 
 
 @app.route("/success", methods=["POST"])
@@ -25,7 +29,7 @@ def heapMap():
 
 @app.route("/download")
 def download():
-        filename = convert.file_decoder(uploadedFile)
+        filename = util.file_decoder(uploadedFile)
         return send_file(filename,as_attachment=True)
 
         
