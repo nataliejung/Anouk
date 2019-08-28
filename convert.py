@@ -168,15 +168,15 @@ def heapMap(uploadedFile):
     def colorcode(row):
         res = ["" for _ in row.index]
         pdiff = np.abs(row["% Change"])
-        if pdiff <= 5:
-            res[row.index.get_loc("TL-Diff")] = "background-color: #e2f0cb"
-            res[row.index.get_loc("% Change")] = "background-color: #e2f0cb"
-        elif pdiff <= 10:
-            res[row.index.get_loc("TL-Diff")] = "background-color: #ffdac1"
-            res[row.index.get_loc("% Change")] = "background-color: #ffdac1"
-        else:
-            res[row.index.get_loc("TL-Diff")] = "background-color: #ff9aa2"
-            res[row.index.get_loc("% Change")] = "background-color: #ff9aa2"
+        if pdiff <= 5: #Green
+            res[row.index.get_loc("TL-Diff")] = "background-color: #92d050"
+            res[row.index.get_loc("% Change")] = "background-color: #92d050"
+        elif pdiff <= 10: #Light Yello
+            res[row.index.get_loc("TL-Diff")] = "background-color: #ffc031"
+            res[row.index.get_loc("% Change")] = "background-color: #ffc031"
+        else:  #Red
+            res[row.index.get_loc("TL-Diff")] = "background-color: #FF0000"
+            res[row.index.get_loc("% Change")] = "background-color: #FF0000"
         return res
 
 
@@ -198,9 +198,14 @@ def heapMap(uploadedFile):
         CBS.style.apply(colorcode, axis=1).to_excel(writer, sheet_name="CBS")
         CIS.style.apply(colorcode, axis=1).to_excel(writer, sheet_name="CIS")
         CCF.style.apply(colorcode, axis=1).to_excel(writer, sheet_name="CCF")
-        util.file_width(writer, "CBS")           
-        util.file_width(writer, "CIS")     
-        util.file_width(writer, "CCF")
+        util.file_width(CBS, writer, "CBS")           
+        util.file_width(CIS, writer, "CIS")     
+        util.file_width(CCF, writer, "CCF")
+    
+
+    
+
+        
 
     
        

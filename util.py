@@ -22,10 +22,19 @@ def file_decoder(song):
 
 
 # Set Excel file witdth
-def file_width(writer, sheet_name):
+def file_width(dataframe, writer, sheet_name):
     print("sheet name: "+ sheet_name)
     workbook = writer.book  # Access the workbook
-    worksheet = writer.sheets[sheet_name]  # Access the Worksheet    
-    worksheet.set_column(1,1, 45)       
-    #workbook.close()
+    worksheet = writer.sheets[sheet_name]  # Access the Worksheet   
+    for i, width in enumerate(get_col_widths(dataframe)):
+       worksheet.set_column(i, i, width)
+     
+    
+
+def get_col_widths(dataframe):
+    # First we find the maximum length of the index column   
+    idx_max = max([len(str(s)) for s in dataframe.index.values] + [len(str(dataframe.index.name))])
+    # Then, we concatenate this to the max of the lengths of column name and its values for each column, left to right
+    return [idx_max] + [max([len(str(s)) for s in dataframe[col].values] + [len(col)]) for col in dataframe.columns]
+
 
