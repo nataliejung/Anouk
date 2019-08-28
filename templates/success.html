@@ -9,23 +9,23 @@
                 <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
                 <style>
                     #myProgress {
-                      width: 80%;
+                      width: 100%;
                       background-color: #ddd;
                     }
                     
                     #myBar {
                       width: 1%;
                       height: 30px;
-                      background-color: rgb(192, 192, 192);
+                      background-color:#FCFF33  ;
                     }
                     </style>
                 <script>
                     function move() {
                       var elem = document.getElementById("myBar");   
                       var width = 1;
-                      var id = setInterval(frame, 100);
+                      var id = setInterval(frame, 300);
                       function frame() {
-                        if (width >= 100) {
+                        if (width >= 80) {
                           clearInterval(id);
                         } else {
                           width++; 
