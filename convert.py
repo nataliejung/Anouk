@@ -1,8 +1,8 @@
 import re
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import xlsxwriter
+#import matplotlib.pyplot as plt
+#import xlsxwriter
 import util
 from tika import parser
 from pprint import pprint
@@ -11,7 +11,7 @@ from pprint import pprint
 
 
 def heapMap(uploadedFile):
-    
+      
     parsedPDF = parser.from_file(uploadedFile, xmlContent=True)
    
     parsedPDF.keys()
@@ -190,64 +190,23 @@ def heapMap(uploadedFile):
     addChanges(CIS)
     addChanges(CCF)
     
-    #Delete any file
+    #Delete any files
     util.clean_file(util.file_decoder(uploadedFile))
 
     # Export to excel
-    with pd.ExcelWriter(util.file_decoder(uploadedFile)) as writer:
+    convertedFile = util.file_decoder(uploadedFile)
+    with pd.ExcelWriter(convertedFile) as writer:
         CBS.style.apply(colorcode, axis=1).to_excel(writer, sheet_name="CBS")
         CIS.style.apply(colorcode, axis=1).to_excel(writer, sheet_name="CIS")
         CCF.style.apply(colorcode, axis=1).to_excel(writer, sheet_name="CCF")
-        util.file_width(CBS, writer, "CBS")           
+        util.file_width(CBS, writer, "CBS")             
         util.file_width(CIS, writer, "CIS")     
-        util.file_width(CCF, writer, "CCF")
-    
+        util.file_width(CCF, writer, "CCF")        
+        writer.save()
 
-    
-
+    # Chats
+    util.plotChanges(CBS, "CBS", convertedFile)
+    util.plotChanges(CIS, "CIS", convertedFile)
+    util.plotChanges(CCF, "CCF", convertedFile)    
         
-
     
-       
-    
-      
-
-    # Parameters for plotting
-    plotKwargs = {
-        "x": "Name",
-        "figsize": (17, 12),
-        "kind": "bar",
-        "fontsize": 20,
-    }
-
-
-    def plotChanges(fdf):
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
-        ax1 = ax.twinx()
-
-        def align_yaxis(ax1, v1, ax2, v2):
-            """adjust ax2 ylimit so that v2 in ax2 is aligned to v1 in ax1"""
-            _, y1 = ax1.transData.transform((0, v1))
-            _, y2 = ax2.transData.transform((0, v2))
-            inv = ax2.transData.inverted()
-            _, dy = inv.transform((0, 0)) - inv.transform((0, y1-y2))
-            miny, maxy = ax2.get_ylim()
-            ax2.set_ylim(miny+dy, maxy+dy)
-
-        fdf.plot(y="% Change", ax=ax, **plotKwargs, position=0, color="red")
-        fdf.plot(y="TL-Diff", ax=ax1, **plotKwargs, position=1, color="blue")
-
-        align_yaxis(ax, 0, ax1, 0)
-
-
-  #  plotChanges(CBS)
-
-  #  plotChanges(CIS)
-
-  #  plotChanges(CCF)
-
-
-
-
-#heapMap("Koc-Holding-2018-Annual-Report.pdf")

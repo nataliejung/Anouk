@@ -2,16 +2,14 @@ from flask import *
 import convert
 import util
 
+
 uploadedFile = "Koc-Holding-2018-Annual-Report.pdf"  #None
 
 app = Flask(__name__)
 
 @app.route("/")
-def upload():
-   convert.heapMap(uploadedFile)
-   return render_template("download.html", name=uploadedFile)
-
-    #return render_template("file_upload.html")
+def upload(): 
+   return render_template("file_upload.html")
 
 
 @app.route("/success", methods=["POST"])
