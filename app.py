@@ -3,7 +3,7 @@ import convert
 import util
 
 
-uploadedFile = "Koc-Holding-2018-Annual-Report.pdf"  #None
+
 
 app = Flask(__name__)
 
@@ -13,21 +13,27 @@ def upload():
 
 
 @app.route("/success", methods=["POST"])
-def success():
-    global uploadedFile  
+def success():    
     f = request.files["uploadedFile"]
+    global uploadedFile
     uploadedFile = f.filename
     f.save(uploadedFile)
     return render_template("success.html", name=uploadedFile)
 
+
+
 @app.route("/convert")
-def heapMap():
-        convert.heapMap(uploadedFile)
+def heapMap():             
+        isKoc = util.isKoc(uploadedFile)        
+        convert.heapMap(uploadedFile, isKoc)
         return render_template("download.html", name=uploadedFile)
+
+
 
 @app.route("/download")
 def download():
         filename = util.file_decoder(uploadedFile)
+        print("download: "+filename)
         return send_file(filename,as_attachment=True)
 
         

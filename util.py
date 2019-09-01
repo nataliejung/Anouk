@@ -6,9 +6,25 @@ import PIL
 import xlsxwriter
 
 
+# Which PDF file?
+def isKoc(uploadedFile):
+  print(uploadedFile)
+  if strings_iequal(uploadedFile, "Koc-Holding-2018-Annual-Report.pdf"):
+    return True
+  else:
+    return False
 
 
-#Delete any exisitng files
+def strings_iequal(first, second):
+    try:
+        return first.upper() == second.upper()
+    except AttributeError:
+        if not first:
+            if not second:
+                return True  
+
+
+# Delete any exisitng files
 def clean_file(file_name):
   if os.path.exists(file_name):
     print("removed the exisiting excel file")
@@ -69,7 +85,7 @@ def plotChanges(fdf, sheet_name, convertedFile):
         ax2.set_ylim(miny+dy, maxy+dy)
         
     fdf.plot(y="% Change", ax=ax, **plotKwargs, position=0, color="red")
-    fdf.plot(y="TL-Diff", ax=ax1, **plotKwargs, position=1, color="blue")         
+    fdf.plot(y="Diff", ax=ax1, **plotKwargs, position=1, color="blue")         
     align_yaxis(ax, 0, ax1, 0)    
     plt.savefig('output.png')
     
