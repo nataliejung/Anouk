@@ -24,8 +24,8 @@ def success():
 
 @app.route("/convert")
 def heapMap():             
-        isKoc = util.isKoc(uploadedFile)        
-        convert.heapMap(uploadedFile, isKoc)
+        isKoc = util.isKoc(uploadedFile)
+        convert.heapMap(uploadedFile, isKoc)              
         return render_template("download.html", name=uploadedFile)
 
 

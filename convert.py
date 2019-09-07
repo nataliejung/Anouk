@@ -75,7 +75,6 @@ def heapMap(uploadedFile, isKoc):
         pagenrs. pagenrs can also be a list of numbers,
         in which case this function returns a list of
         the target allPages.
-
         Removes empty lines
         """
         

@@ -6,11 +6,27 @@ import PIL
 import xlsxwriter
 
 
+
+# Which PDF file?
+def whichBank(uploadedFile):
+  print(uploadedFile)
+  if strings_iequal(uploadedFile, "Koc-Holding-2018-Annual-Report.pdf"):
+    return "KOC"
+  elif strings_iequal(uploadedFile, "KONE_Annual_Review_2018__tcm17-78604.pdf"):
+    return "KONE"  
+  elif strings_iequal(uploadedFile, "2018-Annual-Report-ING-Bank-N.V..pdf"):
+    return "ING" 
+  else: #SWEDBANK
+    return "SWEDBANK"
+
+
+
+
 # Which PDF file?
 def isKoc(uploadedFile):
   print(uploadedFile)
   if strings_iequal(uploadedFile, "Koc-Holding-2018-Annual-Report.pdf"):
-    return True
+    return True  
   else:
     return False
 
